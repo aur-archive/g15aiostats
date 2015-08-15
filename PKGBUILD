@@ -1,0 +1,26 @@
+# Contributor: kontakt.zuf@gmail.com
+# Contributor: refujee <refujee@gmail.com>
+
+pkgname=g15aiostats
+pkgver=0.24
+pkgrel=2
+pkgdesc="A plugin that displays the current time, date, per core CPU usage, upload and download ne
+twork rates, disk read, write and usage, memory usage, and a timer all on one screen and all at a smooth 20 FPS."
+arch=(i686 x86_64)
+url="https://code.google.com/p/g15aiostats/"
+license=('GPL')
+depends=(libgtop libg15render g15daemon boost lm_sensors)
+source=(https://g15aiostats.googlecode.com/files/$pkgname-$pkgver.tar.gz)
+
+md5sums=('6aad631dac3065c98713b774d0619af7')
+
+build() {
+        cd "$srcdir"/$pkgname-$pkgver
+        ./configure --prefix=/usr
+        /usr/bin/make
+}
+ 
+package() {
+        cd "$srcdir"/$pkgname-$pkgver
+        make DESTDIR="$pkgdir" install
+}
